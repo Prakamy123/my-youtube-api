@@ -20,7 +20,13 @@ app.post('/getVideoInfo', async (req, res) => {
     }
 
     try {
-        const info = await ytdl.getInfo(url);
+        const info = await ytdl.getInfo(url, {
+    requestOptions: {
+        headers: {
+            cookie: process.env.YOUTUBE_COOKIE,
+        },
+    },
+});
         const title = info.videoDetails.title;
         const thumbnail = info.videoDetails.thumbnails[info.videoDetails.thumbnails.length - 1].url;
         
